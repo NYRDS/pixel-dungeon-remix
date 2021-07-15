@@ -321,13 +321,11 @@ public abstract class Mob extends Char {
 		if (level().distance(pos, enemyPos) <= 1) {
 			if(Dungeon.visible[pos]) {
 				getSprite().attack(enemyPos);
-			} else {
 				onAttackComplete();
 			}
 		} else {
 			if (Dungeon.isPathVisible(pos, enemyPos)) {
 				getSprite().zap(enemyPos);
-			} else {
 				onZapComplete();
 			}
 		}

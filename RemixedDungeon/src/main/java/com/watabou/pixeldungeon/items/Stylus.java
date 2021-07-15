@@ -94,7 +94,7 @@ public class Stylus extends Item {
 		
 		detach( owner.getBelongings().backpack );
 
-		owner.getSprite().operate( owner.getPos(), null);
+		owner.getSprite().operate( owner.getPos());
 		owner.getSprite().centerEmitter().start( PurpleParticle.BURST, 0.05f, 10 );
 		Sample.INSTANCE.play( Assets.SND_BURNING );
 		

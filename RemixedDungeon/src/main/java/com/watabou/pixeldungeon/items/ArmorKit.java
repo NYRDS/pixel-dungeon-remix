@@ -91,7 +91,7 @@ public class ArmorKit extends Item {
 			owner.collect(classArmor);
 		}
 		
-		owner.getSprite().operate( owner.getPos(), null);
+		owner.getSprite().operate( owner.getPos());
 		Sample.INSTANCE.play( Assets.SND_EVOKE );
 	}
 	

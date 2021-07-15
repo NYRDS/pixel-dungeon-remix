@@ -60,12 +60,12 @@ public class Seed extends Item {
             chr.spend(TIME_TO_PLANT);
             ((Seed) detach(chr.getBelongings().backpack)).onThrow(chr.getPos(), chr);
 
-            chr.getSprite().operate(chr.getPos(), null);
+            chr.getSprite().operate(chr.getPos());
 
         } else if (action.equals(CommonActions.AC_EAT)) {
             detach(chr.getBelongings().backpack);
 
-            chr.getSprite().operate(chr.getPos(), null);
+            chr.getSprite().operate(chr.getPos());
 
             SpellSprite.show(chr, SpellSprite.FOOD);
             Sample.INSTANCE.play(Assets.SND_EAT);

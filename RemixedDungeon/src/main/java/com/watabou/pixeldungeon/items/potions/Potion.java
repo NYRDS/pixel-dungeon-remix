@@ -204,7 +204,7 @@ public class Potion extends Item implements UnknownItem {
 		
 		Sample.INSTANCE.play( Assets.SND_DRINK );
 		
-		hero.getSprite().operate( hero.getPos(), null);
+		hero.getSprite().operate( hero.getPos());
 		shattered = false;
 	}
 	
@@ -214,7 +214,7 @@ public class Potion extends Item implements UnknownItem {
 
 		GameScene.selectItem(hero, itemSelector, WndBag.Mode.MOISTABLE, Game.getVar(R.string.Potion_SelectForMoisten));
 		
-		hero.getSprite().operate( hero.getPos(), null);
+		hero.getSprite().operate( hero.getPos());
 	}
 	
 	@Override
@@ -389,7 +389,7 @@ public class Potion extends Item implements UnknownItem {
 
 		detach(owner.getBelongings().backpack );
 		GLog.i(Game.getVar(R.string.Potion_MoistenUseless));
-		owner.getSprite().operate( owner.getPos(), null);
+		owner.getSprite().operate( owner.getPos());
 		owner.spend( TIME_TO_MOISTEN );
 	}
 	
@@ -398,7 +398,7 @@ public class Potion extends Item implements UnknownItem {
 
 		detach(owner.getBelongings().backpack );
 		identify();
-		owner.getSprite().operate( owner.getPos(), null);
+		owner.getSprite().operate( owner.getPos());
 		owner.spend( TIME_TO_MOISTEN );
 	}
 

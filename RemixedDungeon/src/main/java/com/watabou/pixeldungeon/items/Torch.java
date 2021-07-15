@@ -61,7 +61,7 @@ public class Torch extends Item {
 			
 			chr.spend( TIME_TO_LIGHT );
 
-			chr.getSprite().operate( chr.getPos(), null);
+			chr.getSprite().operate( chr.getPos());
 			
 			detach( chr.getBelongings().backpack );
 			Buff.affect(chr, Light.class, Light.DURATION );

@@ -90,7 +90,7 @@ public class LloydsBeacon extends Item {
 			
 			chr.spend( LloydsBeacon.TIME_TO_USE );
 
-			chr.getSprite().operate( chr.getPos(), null);
+			chr.getSprite().operate( chr.getPos());
 			Sample.INSTANCE.play( Assets.SND_BEACON );
 			
 			GLog.i( Game.getVar(R.string.LloidsBeacon_Return) );

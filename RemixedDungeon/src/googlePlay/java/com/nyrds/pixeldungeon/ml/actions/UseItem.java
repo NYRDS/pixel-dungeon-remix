@@ -20,7 +20,7 @@ public class UseItem extends CharAction{
         item.execute(hero, action);
 
         if(GameScene.defaultCellSelector()) {
-            hero.readyAndIdle();
+            hero.curAction = null;
             hero.next();
         } else {
             hero.curAction = null;

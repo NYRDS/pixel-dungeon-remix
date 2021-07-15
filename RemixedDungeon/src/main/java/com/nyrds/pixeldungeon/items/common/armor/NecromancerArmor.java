@@ -34,7 +34,7 @@ public class NecromancerArmor extends ClassArmor {
 	@Override
 	public void doSpecial(@NotNull Char user) {
 		user.spend( Actor.TICK );
-		user.getSprite().operate( user.getPos(), null);
+		user.getSprite().operate( user.getPos());
 
 		Buff.affect( user, Necrotism.class ).set(Necrotism.duration, 1);
 

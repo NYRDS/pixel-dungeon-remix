@@ -86,7 +86,7 @@ public class BuffIndicator extends Component {
 	
 	private SparseArray<Image> icons = new SparseArray<>();
 	
-	private Char ch;
+	private final Char ch;
 	
 	public BuffIndicator( Char ch ) {
 		super();

@@ -27,7 +27,7 @@ public class Candy extends Food {
 
 			GLog.w(Game.getVar(R.string.Candy_Warning_1));
 
-			chr.getSprite().operate( chr.getPos(), null);
+			chr.getSprite().operate( chr.getPos());
 			SpellSprite.show(chr, SpellSprite.FOOD );
 			Sample.INSTANCE.play( Assets.SND_EAT );
 

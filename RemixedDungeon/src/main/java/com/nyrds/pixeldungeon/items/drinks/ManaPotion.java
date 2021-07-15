@@ -29,7 +29,7 @@ public class ManaPotion extends Drink {
 			GLog.i( Game.getVar(R.string.Drink_Message) );
 
 			chr.setSkillPoints(chr.getSkillPoints() + chr.getSkillPointsMax()/3);
-			chr.getSprite().operate( chr.getPos(), null);
+			chr.getSprite().operate( chr.getPos());
 
 			SpellSprite.show(chr, SpellSprite.FOOD );
 			Sample.INSTANCE.play( Assets.SND_DRINK );

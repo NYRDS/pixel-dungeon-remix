@@ -552,6 +552,7 @@ public abstract class Char extends Actor implements HasPositionOnLevel, Presser,
 		if (canAttack(enemy)) {
 			spend(attackDelay());
 			getSprite().attack(enemy.getPos());
+			onAttackComplete();
 
 			return false;
 		}

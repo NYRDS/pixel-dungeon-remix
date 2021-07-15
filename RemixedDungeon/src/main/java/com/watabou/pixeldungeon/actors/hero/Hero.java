@@ -879,7 +879,7 @@ public class Hero extends Char {
 
 		if (intentional) {
 			getSprite().showStatus(CharSprite.DEFAULT, Game.getVar(R.string.Hero_Search));
-			getSprite().operate(getPos(), null);
+			getSprite().operate(getPos());
 			if (smthFound) {
 				spendAndNext(Random.Float() < searchLevel ? TIME_TO_SEARCH : TIME_TO_SEARCH * 2);
 			} else {
@@ -972,7 +972,7 @@ public class Hero extends Char {
             break;
         }
 
-		getSprite().operate( getPos(), null);
+		getSprite().operate( getPos());
 		busy();
 		SpellSprite.show(this, SpellSprite.FOOD );
 		Sample.INSTANCE.play( Assets.SND_EAT );

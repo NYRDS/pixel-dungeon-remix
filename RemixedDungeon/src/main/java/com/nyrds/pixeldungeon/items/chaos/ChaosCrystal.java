@@ -67,7 +67,7 @@ public class ChaosCrystal extends UsableArtifact {
 
 			removeItemFrom(selector);
 
-			selector.getSprite().operate(selector.getPos(), null);
+			selector.getSprite().operate(selector.getPos());
 			selector.spend(TIME_TO_FUSE);
 
 			if (item instanceof Scroll) {
@@ -104,7 +104,7 @@ public class ChaosCrystal extends UsableArtifact {
 
 	private void fuse(Char hero) {
 		GameScene.selectItem(hero, itemSelector, WndBag.Mode.FUSEABLE, Game.getVar(R.string.ChaosCrystal_SelectForFuse));
-		hero.getSprite().operate(hero.getPos(), null);
+		hero.getSprite().operate(hero.getPos());
 	}
 
 	@Override

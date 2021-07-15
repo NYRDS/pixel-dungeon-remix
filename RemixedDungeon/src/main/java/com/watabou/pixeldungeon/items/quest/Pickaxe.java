@@ -22,7 +22,6 @@ import com.nyrds.pixeldungeon.ml.R;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.pixeldungeon.Assets;
-import com.watabou.pixeldungeon.Dungeon;
 import com.watabou.pixeldungeon.actors.Char;
 import com.watabou.pixeldungeon.actors.buffs.Hunger;
 import com.watabou.pixeldungeon.actors.hero.Hero;
@@ -30,8 +29,6 @@ import com.watabou.pixeldungeon.actors.mobs.Bat;
 import com.watabou.pixeldungeon.effects.CellEmitter;
 import com.watabou.pixeldungeon.effects.Speck;
 import com.watabou.pixeldungeon.items.weapon.Weapon;
-import com.watabou.pixeldungeon.levels.CavesBossLevel;
-import com.watabou.pixeldungeon.levels.CavesLevel;
 import com.watabou.pixeldungeon.levels.Level;
 import com.watabou.pixeldungeon.levels.Terrain;
 import com.watabou.pixeldungeon.scenes.GameScene;
@@ -78,39 +75,40 @@ public class Pickaxe extends Weapon {
 	public void _execute(@NotNull final Char chr, @NotNull String action ) {
 		
 		if (action.equals(AC_MINE)) {
-			
-			if (!(Dungeon.level instanceof CavesLevel || Dungeon.level instanceof CavesBossLevel) ) {
+
+			Level level = chr.level();
+
+			/*
+			if (!(level instanceof CavesLevel || level instanceof CavesBossLevel) ) {
 				GLog.w( Game.getVar(R.string.Pickaxe_NoVein) );
 				return;
 			}
-			
+			*/
 			for (int i=0; i < Level.NEIGHBOURS8.length; i++) {
 				
 				final int pos = chr.getPos() + Level.NEIGHBOURS8[i];
-				if (Dungeon.level.map[pos] == Terrain.WALL_DECO) {
+				if (level.map[pos] == Terrain.WALL_DECO) {
 				
 					chr.spend( TIME_TO_MINE );
 
-					chr.getSprite().attack( pos, () -> {
+					CellEmitter.center( pos ).burst( Speck.factory( Speck.STAR ), 7 );
+					Sample.INSTANCE.play( Assets.SND_EVOKE );
 
-						CellEmitter.center( pos ).burst( Speck.factory( Speck.STAR ), 7 );
-						Sample.INSTANCE.play( Assets.SND_EVOKE );
+					level.set( pos, Terrain.WALL );
+					GameScene.updateMap( pos );
 
-						Dungeon.level.set( pos, Terrain.WALL );
-						GameScene.updateMap( pos );
+					DarkGold gold = new DarkGold();
+					if (gold.doPickUp( chr )) {
+						GLog.i( Hero.getHeroYouNowHave(), gold.name() );
+					} else {
+						gold.doDrop(chr);
+					}
 
-						DarkGold gold = new DarkGold();
-						if (gold.doPickUp( Dungeon.hero )) {
-							GLog.i( Hero.getHeroYouNowHave(), gold.name() );
-						} else {
-							gold.doDrop(chr);
-						}
+					chr.hunger().satisfy( -Hunger.STARVING / 10 );
+					BuffIndicator.refreshHero();
 
-						chr.hunger().satisfy( -Hunger.STARVING / 10 );
-						BuffIndicator.refreshHero();
 
-						chr.onOperateComplete();
-					});
+					chr.getSprite().dummyAttack(pos);
 					
 					return;
 				}

@@ -49,7 +49,6 @@ import com.watabou.pixeldungeon.effects.TorchHalo;
 import com.watabou.pixeldungeon.effects.particles.FlameParticle;
 import com.watabou.pixeldungeon.scenes.GameScene;
 import com.watabou.pixeldungeon.utils.Utils;
-import com.watabou.utils.Callback;
 import com.watabou.utils.PointF;
 import com.watabou.utils.Random;
 
@@ -57,8 +56,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Locale;
-
-import lombok.val;
 
 public class CharSprite extends CompositeMovieClip implements Tweener.Listener, MovieClip.Listener {
 
@@ -96,8 +93,6 @@ public class CharSprite extends CompositeMovieClip implements Tweener.Listener, 
     protected Animation operate;
     protected Animation zap;
     protected Animation die;
-
-    private Callback animCallback;
 
     private Tweener motion;
 
@@ -226,42 +221,19 @@ public class CharSprite extends CompositeMovieClip implements Tweener.Listener, 
         });
     }
 
-    public void attack(int cell, Callback callback) {
-        ch.ifPresent(chr -> {
-            if (callback != null) {
-                animCallback = callback;
-            }
-            turnTo(chr.getPos(), cell);
-            play(attack);
-        });
-    }
-
     @LuaInterface
     public void dummyAttack(int cell) {
         ch.ifPresent(chr -> {
             if (Dungeon.visible[chr.getPos()]) {
-                attack(cell, this::idle);
+                attack(cell);
             }
         });
     }
 
-    public void operate(int cell, @Nullable Callback callback) {
+    public void operate(int cell) {
         ch.ifPresent(chr -> {
-            if (callback != null) {
-                animCallback = callback;
-            }
             turnTo(chr.getPos(), cell);
             play(operate);
-        });
-    }
-
-    public void zap(int cell, Callback callback) {
-        ch.ifPresent(chr -> {
-            if (callback != null) {
-                animCallback = callback;
-            }
-            turnTo(chr.getPos(), cell);
-            play(zap);
         });
     }
 
@@ -547,24 +519,15 @@ public class CharSprite extends CompositeMovieClip implements Tweener.Listener, 
                 return;
             }
 
-            if (animCallback != null) {
-                val callback = animCallback;
-                animCallback = null;
-                callback.call();
-            } else {
-                if (anim == attack) {
-                    chr.onAttackComplete();
-                    idle();
-                    return;
-                } else if (anim == zap) {
-                    chr.onZapComplete();
-                    idle();
-                    return;
-                } else if (anim == operate) {
-                    chr.onOperateComplete();
-                    idle();
-                    return;
-                }
+            if (anim == attack) {
+                idle();
+                return;
+            } else if (anim == zap) {
+                idle();
+                return;
+            } else if (anim == operate) {
+                idle();
+                return;
             }
 
             if(curAnim!=run) {
@@ -628,7 +591,6 @@ public class CharSprite extends CompositeMovieClip implements Tweener.Listener, 
     public void completeForce() {
         interruptMotion();
         interruptAnimation();
-        animCallback = null;
 
         reset();
     }

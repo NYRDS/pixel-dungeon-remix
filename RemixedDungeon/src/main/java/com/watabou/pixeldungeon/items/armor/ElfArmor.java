@@ -40,7 +40,7 @@ public class ElfArmor extends ClassArmor {
 		}
 
 		user.spend( Actor.TICK );
-		user.getSprite().operate( user.getPos(), null);
+		user.getSprite().operate( user.getPos());
 
 		Sample.INSTANCE.play( Assets.SND_READ );
 		

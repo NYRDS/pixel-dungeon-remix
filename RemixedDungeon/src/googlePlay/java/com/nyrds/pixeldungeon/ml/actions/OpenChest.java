@@ -54,20 +54,22 @@ public class OpenChest extends CharAction {
                 }
 
                 hero.spend(Key.TIME_TO_UNLOCK);
-                hero.getSprite().operate(dst, () -> {
-                    if (theKey[0] != null) {
-                        theKey[0].removeItemFrom(hero);
-                    }
 
-                    Heap OpenedHeap = level.getHeap(dst);
-                    if (OpenedHeap != null) {
-                        if (OpenedHeap.type == Heap.Type.SKELETON) {
-                            Sample.INSTANCE.play(Assets.SND_BONES);
-                        }
-                        OpenedHeap.open(hero);
+                hero.getSprite().operate(dst);
+
+                if (theKey[0] != null) {
+                    theKey[0].removeItemFrom(hero);
+                }
+
+                Heap OpenedHeap = level.getHeap(dst);
+                if (OpenedHeap != null) {
+                    if (OpenedHeap.type == Heap.Type.SKELETON) {
+                        Sample.INSTANCE.play(Assets.SND_BONES);
                     }
-                    hero.readyAndIdle();
-                });
+                    OpenedHeap.open(hero);
+                }
+                hero.curAction = null;
+                hero.next();
 
             } else {
                 hero.readyAndIdle();
