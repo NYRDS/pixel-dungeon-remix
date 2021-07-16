@@ -20,7 +20,7 @@ https://discordapp.com/invite/AMXrhQZ
 在推特上关注我们：
 https://twitter.com/nyrds
 
-这是一款基于GPLv3运行的开源游戏软件。点此查看混合像素地牢的源代码：
+这是一款基于GPLv3运行的开源游戏软件。点此查看混合地牢源代码：
 https://github.com/NYRDS/remixed-dungeon
 
 如果你想为翻译工作出一份力，请访问：
